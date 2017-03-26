@@ -1,0 +1,63 @@
+---
+title: "How to use pmfdR"
+author: "Marcelo Perlin"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to use pmfdR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Package `pmfdR` provides access to all material from my book **Processing and Modelling Financial Data with R**. You can find more details about it [here](https://sites.google.com/view/pmfdr/home).
+
+With `pmfdR` you can:
+
+1) Download data and code with function `pmfdR_download.code.and.data`
+2) Build exercises with function `pmfdR_build.exercise`
+
+## Downloading code and data
+
+All the R code from the book is publicly available in [github](https://github.com/msperlin/pmfdR-en-code_data/). Function `pmfdR_download.code.and.data` will download a zip file from the repository and unzip it at specified folder. Have a look in its usage:
+
+```{r, eval=FALSE}
+if (!require(pmfdR)){
+  install.packages('pmfdR')
+  library(pmfdR)
+} 
+
+my.lan <- 'en' # language of code and data ('en' or 'pt-br')
+
+# dl may take some time (around 60 mb)
+pmfdR_download.code.and.data(lan = my.lan)
+
+dir.out <- 'pmfdR-en-code_data-master'
+
+# list R code
+list.files(dir.out, pattern = '*.R')
+list.files(paste0(dir.out,'/data'))
+```
+
+## Building exercises
+
+All exercises from the book are based on package `exams`. This means that every reader will have a different version of the exercise, with different values and correct answer. I've written extensively about the positive aspects of using `exams`. You can find the full post [here](https://msperlin.github.io/2017-01-30-Exams-with-dynamic-content/)
+
+You can create your custom exercise file using function `pmfdR_build.exercise`. Give it a try, just copy and paste the following chunk of code in your R prompt.
+
+```{r, eval=FALSE}
+if (!require(pmfdR)){
+  install.packages('pmfdR')
+  library(pmfdR)
+} 
+
+my.lan <- 'en' # language of exercises
+my.exercise.folder <- 'pmfdR-exercises' # name of folder with exercises files (will download from github)
+my.pdf.folder <- 'PdfOut' # name of folder to place pdf file and answer sheet
+
+pmfdR_build.exercise(lan = my.lan,
+                     exercise.folder = my.exercise.folder, 
+                     pdf.folder = my.pdf.folder)
+
+list.files(my.pdf.folder)
+```
+
